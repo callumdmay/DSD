@@ -1,0 +1,46 @@
+P:/DSD/DSD/DSD/Lab1/g25_16_4_encoder.vhd {1 {vcom -work work -2002 -explicit -stats=none P:/DSD/DSD/DSD/Lab1/g25_16_4_encoder.vhd
+Model Technology ModelSim ALTERA vcom 10.3d Compiler 2014.10 Oct  7 2014
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity g25_16_4_encoder
+-- Compiling architecture implementation of g25_16_4_encoder
+
+} {} {}} P:/DSD/DSD/DSD/Lab1/g25_64_6_encoder.vhd {1 {vcom -work work -2002 -explicit -stats=none P:/DSD/DSD/DSD/Lab1/g25_64_6_encoder.vhd
+Model Technology ModelSim ALTERA vcom 10.3d Compiler 2014.10 Oct  7 2014
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity g25_64_6_encoder
+-- Compiling architecture implementation of g25_64_6_encoder
+
+} {} {}} P:/DSD/DSD/DSD/Lab1/g25_7_segment_decoder.vhd {1 {vcom -work work -2002 -explicit -stats=none P:/DSD/DSD/DSD/Lab1/g25_7_segment_decoder.vhd
+Model Technology ModelSim ALTERA vcom 10.3d Compiler 2014.10 Oct  7 2014
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity g25_7_segment_decoder
+-- Compiling architecture implementation of g25_7_segment_decoder
+
+} {} {}} P:/DSD/DSD/DSD/Lab1/simulation/modelsim/g25_7_segment_decoder.vht {1 {vcom -work work -2002 -explicit -stats=none P:/DSD/DSD/DSD/Lab1/simulation/modelsim/g25_7_segment_decoder.vht
+Model Technology ModelSim ALTERA vcom 10.3d Compiler 2014.10 Oct  7 2014
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity g25_7_segment_decoder_vhd_tst
+-- Compiling architecture g25_7_segment_decoder_arch of g25_7_segment_decoder_vhd_tst
+
+} {} {}} P:/DSD/DSD/DSD/Lab1/g25_keyboard_encoder.vhd {1 {vcom -work work -2002 -explicit -stats=none P:/DSD/DSD/DSD/Lab1/g25_keyboard_encoder.vhd
+Model Technology ModelSim ALTERA vcom 10.3d Compiler 2014.10 Oct  7 2014
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity g25_keyboard_encoder
+-- Compiling architecture implementation of g25_keyboard_encoder
+
+} {} {}}

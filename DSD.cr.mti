@@ -1,0 +1,66 @@
+P:/DSD/lab4/g25_video_overlay.vhd {1 {vcom -work work -2002 -explicit -stats=none P:/DSD/lab4/g25_video_overlay.vhd
+Model Technology ModelSim ALTERA vcom 10.3d Compiler 2014.10 Oct  7 2014
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package LPM_COMPONENTS
+-- Loading package NUMERIC_STD
+-- Compiling entity g25_video_overlay
+-- Compiling architecture arch of g25_video_overlay
+
+} {} {}} P:/DSD/lab4/g25_Text_Address_Generator.vhd {1 {vcom -work work -2002 -explicit -stats=none P:/DSD/lab4/g25_Text_Address_Generator.vhd
+Model Technology ModelSim ALTERA vcom 10.3d Compiler 2014.10 Oct  7 2014
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package LPM_COMPONENTS
+-- Loading package NUMERIC_STD
+-- Compiling entity g25_Text_Address_Generator
+-- Compiling architecture implementation of g25_Text_Address_Generator
+
+} {} {}} P:/DSD/lab4/g25_Text_Address_Generator.vht {1 {vcom -work work -2002 -explicit -stats=none P:/DSD/lab4/g25_Text_Address_Generator.vht
+Model Technology ModelSim ALTERA vcom 10.3d Compiler 2014.10 Oct  7 2014
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity g25_Text_Address_Generator_vhd_tst
+-- Compiling architecture g25_Text_Address_Generator_arch of g25_Text_Address_Generator_vhd_tst
+
+} {} {}} P:/DSD/lab4/g25_video_overlay.vht {2 {vcom -work work -2002 -explicit -stats=none P:/DSD/lab4/g25_video_overlay.vht
+Model Technology ModelSim ALTERA vcom 10.3d Compiler 2014.10 Oct  7 2014
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity g25_video_overlay_vhd_tst
+-- Compiling architecture g25_video_overlay_arch of g25_video_overlay_vhd_tst
+** Warning: [4] P:/DSD/lab4/g25_video_overlay.vht(83): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+
+} {} {}} P:/DSD/lab4/g25_fontROM.vhd {1 {vcom -work work -2002 -explicit -stats=none P:/DSD/lab4/g25_fontROM.vhd
+Model Technology ModelSim ALTERA vcom 10.3d Compiler 2014.10 Oct  7 2014
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity g25_fontROM
+-- Compiling architecture Behavioral of g25_fontROM
+
+} {} {}} P:/DSD/lab4/g25_Text_Generator_Circuit.vhd {1 {vcom -work work -2002 -explicit -stats=none P:/DSD/lab4/g25_Text_Generator_Circuit.vhd
+Model Technology ModelSim ALTERA vcom 10.3d Compiler 2014.10 Oct  7 2014
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity g25_Text_Generator_Circuit
+-- Compiling architecture implementaion of g25_Text_Generator_Circuit
+
+} {} {}} P:/DSD/lab4/g25_Text_Generator_Circuit.vht {1 {vcom -work work -2002 -explicit -stats=none P:/DSD/lab4/g25_Text_Generator_Circuit.vht
+Model Technology ModelSim ALTERA vcom 10.3d Compiler 2014.10 Oct  7 2014
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity g25_Text_Generator_Circuit_vhd_tst
+-- Compiling architecture g25_Text_Generator_Circuit_arch of g25_Text_Generator_Circuit_vhd_tst
+
+} {} {}}
