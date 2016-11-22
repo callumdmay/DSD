@@ -1,0 +1,26 @@
+P:/DSD/Lab1/simulation/modelsim/g25_lab1.vht {1 {vcom -work work -2002 -explicit -stats=none P:/DSD/Lab1/simulation/modelsim/g25_lab1.vht
+Model Technology ModelSim ALTERA vcom 10.3d Compiler 2014.10 Oct  7 2014
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity g25_lab1_vhd_tst
+-- Compiling architecture g25_lab1_arch of g25_lab1_vhd_tst
+
+} {} {}} P:/DSD/Lab1/g25_comp6.vhd {1 {vcom -work work -2002 -explicit -stats=none P:/DSD/Lab1/g25_comp6.vhd
+Model Technology ModelSim ALTERA vcom 10.3d Compiler 2014.10 Oct  7 2014
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity g25_comp6
+-- Compiling architecture bdf_type of g25_comp6
+
+} {} {}} P:/DSD/Lab1/g25_lab1.vhd {1 {vcom -work work -2002 -explicit -stats=none P:/DSD/Lab1/g25_lab1.vhd
+Model Technology ModelSim ALTERA vcom 10.3d Compiler 2014.10 Oct  7 2014
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity g25_lab1
+-- Compiling architecture bdf_type of g25_lab1
+
+} {} {}}
