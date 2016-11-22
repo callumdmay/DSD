@@ -38,7 +38,15 @@ Begin
 	int_row <= to_integer(ROW)/16;
 	
 		--********** Score bar **********--
-	ScoreOverlay : g25_video_overlay port map (clock => clock, reset => reset, level => level, life => life, score => score, COLUMN => COLUMN, ROW => ROW, RGB => scorebar_RGB);
+	ScoreOverlay : g25_video_overlay port map (
+			clock => clock, 
+			reset => reset, 
+			level => level, 
+			life => life, 
+			score => score, 
+			COLUMN => COLUMN, 
+			ROW => ROW, 
+			RGB => scorebar_RGB);
 	--*******************************--
 	
 
