@@ -34,7 +34,7 @@ signal int_col, int_row: integer;
 signal scorebar_RGB : std_logic_vector(11 downto 0); 
 
 	function isBlock(COLUMN, ROW : unsigned(9 downto 0); blocks : std_logic_vector( 59 downto 0) ) return Boolean is
-		variable block_col : integer := (to_integer(COLUMN) - 16)/32;
+		variable block_col : integer := (to_integer(COLUMN) - 16)/64;
 		variable block_row : integer := (to_integer(ROW) - 16)/32;
 	begin	
 

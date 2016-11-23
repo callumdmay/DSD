@@ -27,7 +27,8 @@ architecture arch of g25_Engine is
 	signal blocks : std_logic_vector( 59 downto 0):= (others => '1');
 	signal vo_update_count: std_logic_vector(24 downto 0);
 	signal vo_update : std_logic;
-	signal update_max_value : integer := 1000000;	
+	signal update_max_value : integer := 100000;	
+	
 
 Begin
 	
@@ -44,14 +45,17 @@ Begin
 	--*************************************--
 	
 	update_ball : process(vo_update, reset)
-		variable ball_x: unsigned(9 downto 0) := ball_col;
-		variable ball_y: unsigned(9 downto 0) := ball_row;
+		variable ball_x: integer := to_integer(ball_col);
+		variable ball_y: integer := to_integer(ball_row);
+		variable block_col : integer := (to_integer(ball_col) - 16)/32;
+		variable block_row : integer := (to_integer(ball_row) - 16)/32;
 	Begin
 		if (reset = '1') then
-			ball_x := "0110010000";
-			ball_y := "0111000010";
+			ball_x := 400;
+			ball_y := 450;
 			col_increment <= '0';
 			row_increment <= '0';
+			blocks <= (others => '1');
 		elsif(rising_edge(vo_update)) then
 			if(col_increment ='1') then
 				ball_x := ball_x + 1;
@@ -64,22 +68,53 @@ Begin
 				ball_y := ball_y - 1;
 			end if;
 			
-			if(to_integer(ball_x) <= 16) then
+			--Check if hit block
+			if blocks(12 * ((ball_y - 16)/32) + (ball_x -16)/64) = '1' then
+				if(12 * ((ball_y - 16)/32) + (ball_x -16)/64 < 60) then
+					
+					blocks(12 * ((ball_y - 16)/32) + (ball_x -16)/64) <= '0';
+					
+					if (ball_x - 15 ) mod 64 = 0 then
+						col_increment <= not col_increment;
+					elsif (ball_y - 15) mod 32 = 0 then
+						row_increment <= not row_increment;
+					end if;
+				end if;
+				
+			elsif	blocks(12 * ((ball_y - 8)/32) + (ball_x -8)/64) = '1'  then
+				if(12 * ((ball_y - 8)/32) + (ball_x -8)/64 < 60) then
+					
+					blocks(12 * ((ball_y - 8)/32) + (ball_x -8)/64) <= '0';
+					
+					if (ball_x - 8) mod 64 = 0 then
+						col_increment <= not col_increment;
+					elsif (ball_y - 8) mod 32 = 0 then
+						row_increment <= not row_increment;
+					end if;
+				end if;
+		
+			end if;
+
+			
+			--Check if hit wall
+			if(ball_x <= 16) then
 				col_increment <= '1';
 			end if;
-			if(to_integer(ball_x) > 775) then
+			if(ball_x > 775) then
 				col_increment <= '0';
 			end if;
-			if(to_integer(ball_y) <= 16) then 
+			if(ball_y <= 16) then 
 				row_increment <= '1';
 			end if;
-			if(to_integer(ball_y) >= 512)then
+			if(ball_y >= 512)then
 				row_increment <= '0';
-    		end if;
+			end if;
+		
 		end if;
 		
-		ball_col <= ball_x;
-		ball_row <= ball_y;
+		
+		ball_col <= to_unsigned(ball_x, 10);
+		ball_row <= to_unsigned(ball_y, 10);
 			
 	end process update_ball;
 
