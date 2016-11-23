@@ -142,7 +142,19 @@ Begin
 				end if;
 	
 			end if;
-		
+			
+				
+			--Check if hit top of paddle
+			if(ball_y + 8 = paddle_y and ball_x +8 >= paddle_x and ball_x < paddle_x +128) then
+					row_increment <= not row_increment;
+			end if;
+			--Check if hit side of paddle
+			if ( ball_y + 8 > paddle_y and (ball_x + 8 = paddle_x or ball_x = paddle_x + 128 ) ) then
+				col_increment <= not col_increment;
+			end if;
+			
+			
+			
 			--Check if hit wall
 			if(ball_x <= 16) then
 				col_increment <= '1';
@@ -156,9 +168,6 @@ Begin
 			if(ball_y > 503)then
 				row_increment <= '0';
 			end if;
-			
-			ball_col <= ball_x;
-			ball_row <= ball_y;
 			
 		end if;
 			
@@ -179,12 +188,16 @@ Begin
 			
 			end if;
 		
-			paddle_col <= paddle_x;
-			paddle_row <= paddle_y;
 			
 		end if;
 
 	end if;
+	
+	ball_col <= ball_x;
+	ball_row <= ball_y;
+	paddle_col <= paddle_x;
+	paddle_row <= paddle_y;
+			
 	
 end process update_game;
 
