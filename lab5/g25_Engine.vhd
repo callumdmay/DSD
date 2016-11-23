@@ -153,7 +153,16 @@ Begin
 				col_increment <= not col_increment;
 			end if;
 			
-			
+			--Check if below paddle then lose life
+			if(ball_y > paddle_y) then
+				life <= life -1;
+			   ball_x := 400;
+				ball_y := 450;
+				col_increment <= '0';
+				row_increment <= '0';
+				paddle_x := 336;
+				paddle_y := 496;
+			end if;
 			
 			--Check if hit wall
 			if(ball_x <= 16) then
