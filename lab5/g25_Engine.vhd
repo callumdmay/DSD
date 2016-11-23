@@ -28,9 +28,9 @@ architecture arch of g25_Engine is
 	signal ball_col: unsigned(9 downto 0);
 	signal col_increment, row_increment: std_logic := '0';
 	signal blocks : std_logic_vector( 59 downto 0):= (others => '1');
-	signal vo_update_count: std_logic_vector(24 downto 0);
-	signal vo_update : std_logic;
-	signal update_max_value : integer := 100000;	
+	signal ball_update_count: std_logic_vector(24 downto 0);
+	signal ball_update : std_logic;
+	signal ball_speed : integer := 100000;	
 	signal score : integer;
 	signal level : integer;
 	signal life : integer;
@@ -47,12 +47,12 @@ Begin
 --***********Game update clock *********--
 	update_counter : lpm_counter 
 	generic map(LPM_WIDTH => 25)
-	port map (clock =>clock, sclr => vo_update, aclr => reset, q =>vo_update_count);						
-	vo_update <= '1' when vo_update_count = std_logic_vector(to_unsigned(update_max_value, 25)) else
+	port map (clock =>clock, sclr => ball_update, aclr => reset, q =>ball_update_count);						
+	ball_update <= '1' when ball_update_count = std_logic_vector(to_unsigned(ball_speed, 25)) else
 					 '0';	
 	--*************************************--
 	
-update_game : process(vo_update, reset)
+update_game : process(ball_update, reset)
 
 	variable ball_x: integer := to_integer(ball_col);
 	variable ball_y: integer := to_integer(ball_row);
@@ -69,7 +69,7 @@ Begin
 		score <= 0;
 		level <= 1;
 		life  <= 5;
-	elsif(rising_edge(vo_update)) then
+	elsif(rising_edge(ball_update)) then
 		--update position
 		if(col_increment ='1') then
 			ball_x := ball_x + 1;
@@ -85,7 +85,6 @@ Begin
 		--Check if hit block
 		if blocks(12 * ((ball_y - 16)/32) + (ball_x -16)/64) = '1' then
 			if(12 * ((ball_y - 16)/32) + (ball_x -16)/64 < 60) then
-				
 				
 				blocks(12 * ((ball_y - 16)/32) + (ball_x -16)/64) <= '0';
 				score <= score +10;
