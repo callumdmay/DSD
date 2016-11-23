@@ -21,8 +21,8 @@ end g25_Engine;
 
 architecture arch of g25_Engine is
 
-	signal ball_row: unsigned(9 downto 0) := "0111000010";
-	signal ball_col: unsigned(9 downto 0) := "0110010000";
+	signal ball_row: unsigned(9 downto 0);
+	signal ball_col: unsigned(9 downto 0);
 	signal col_increment, row_increment: std_logic := '0';
 	signal blocks : std_logic_vector( 59 downto 0):= (others => '1');
 	signal vo_update_count: std_logic_vector(24 downto 0);
@@ -48,15 +48,16 @@ Begin
 		variable ball_y: unsigned(9 downto 0) := ball_row;
 	Begin
 		if (reset = '1') then
-			ball_col <= "0110010000";
-			ball_row <= "0111000010";
+			ball_x := "0110010000";
+			ball_y := "0111000010";
+			col_increment <= '0';
+			row_increment <= '0';
 		elsif(rising_edge(vo_update)) then
 			if(col_increment ='1') then
 				ball_x := ball_x + 1;
 			else
 				ball_x := ball_x - 1;
 			end if;
-			
 			if(row_increment ='1') then
 				ball_y := ball_y + 1;
 			else
@@ -66,19 +67,15 @@ Begin
 			if(to_integer(ball_x) <= 16) then
 				col_increment <= '1';
 			end if;
-			
 			if(to_integer(ball_x) > 775) then
 				col_increment <= '0';
 			end if;
-			
 			if(to_integer(ball_y) <= 16) then 
 				row_increment <= '1';
 			end if;
-			
 			if(to_integer(ball_y) >= 512)then
 				row_increment <= '0';
     		end if;
-		
 		end if;
 		
 		ball_col <= ball_x;
