@@ -98,6 +98,26 @@ Begin
 	elsif(rising_edge(clock)) then
 	
 		if(pause = '0') then
+
+			--Update paddle
+			if (paddle_update ='1') then
+		
+				if(paddle_left ='0' and paddle_right ='0') then
+				
+				elsif(paddle_left ='0') then
+					if(paddle_x > 15) then
+					paddle_x := paddle_x -1;
+					end if;
+				elsif(paddle_right ='0') then
+					if(paddle_x <=656) then
+					paddle_x := paddle_x +1;
+					end if;
+				else
+				
+				end if;
+				
+			end if;
+			
 			--Update ball
 			if(ball_update = '1') then
 				--update position
@@ -189,24 +209,6 @@ Begin
 				
 			end if;
 				
-			--Update paddle
-			if (paddle_update ='1') then
-		
-				if(paddle_left ='0' and paddle_right ='0') then
-				
-				elsif(paddle_left ='0') then
-					if(paddle_x > 15) then
-					paddle_x := paddle_x -1;
-					end if;
-				elsif(paddle_right ='0') then
-					if(paddle_x <=656) then
-					paddle_x := paddle_x +1;
-					end if;
-				else
-				
-				end if;
-				
-			end if;
 
 		else
 			p_count := p_count +1;
