@@ -13,7 +13,7 @@ use ieee.numeric_std.all;
 
 
 entity g25_Breakout_Game is
-	port(clock, reset: in std_logic;
+	port(clock, reset, VGA_reset: in std_logic;
 			R, G, B : out std_logic_vector(3 downto 0);
 			HSYNC : out std_logic;
 			VSYNC: out std_logic);
@@ -71,7 +71,7 @@ Begin
 	G <= RGB_out(7 downto 4);
 	B <= RGB_out(3 downto 0);
   
-	VGA0 : g25_VGA port map(clock => clock, rst => '0', BLANKING => BLANKING, ROW => ROW, COLUMN => COLUMN, HSYNC => HSYNC, VSYNC => VSYNC);
+	VGA0 : g25_VGA port map(clock => clock, rst => VGA_reset, BLANKING => BLANKING, ROW => ROW, COLUMN => COLUMN, HSYNC => HSYNC, VSYNC => VSYNC);
 	
 	Renderer : g25_Renderer port map(
 		clock => clock,
