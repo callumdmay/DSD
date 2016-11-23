@@ -36,6 +36,7 @@ component g25_Renderer is
 	port( clock, reset: in std_logic;
 			life, level : in std_logic_vector (2 downto 0);
 			score : in std_logic_vector (15 downto 0);
+			blocks: in std_logic_vector (59 downto 0);
 			COLUMN, ROW : in unsigned(9 downto 0);
 			ball_col, ball_row : in unsigned(9 downto 0);
 			RGB : out std_logic_vector (11 downto 0)
@@ -54,11 +55,11 @@ end component;
 	signal BLANKING : std_logic;
 	
 	signal RGB_out : std_logic_vector (11 downto 0);
-	signal ball_row: unsigned(9 downto 0) := "0111000010";
-	signal ball_col: unsigned(9 downto 0) := "0110010000";
-	signal score: std_logic_vector(15 downto 0) := "0000000000000000";
-	signal level: std_logic_vector(2 downto 0) := "001";
-	signal life: std_logic_vector(2 downto 0) := "101";
+	signal ball_row: unsigned(9 downto 0);
+	signal ball_col: unsigned(9 downto 0);
+	signal score: std_logic_vector(15 downto 0);
+	signal level: std_logic_vector(2 downto 0);
+	signal life: std_logic_vector(2 downto 0);
 	signal blocks : std_logic_vector (59 downto 0);
 	
 Begin
@@ -67,7 +68,7 @@ Begin
 	G <= RGB_out(7 downto 4);
 	B <= RGB_out(3 downto 0);
   
-	VGA0 : g25_VGA port map(clock => clock, rst => reset, BLANKING => BLANKING, ROW => ROW, COLUMN => COLUMN, HSYNC => HSYNC, VSYNC => VSYNC);
+	VGA0 : g25_VGA port map(clock => clock, rst => '0', BLANKING => BLANKING, ROW => ROW, COLUMN => COLUMN, HSYNC => HSYNC, VSYNC => VSYNC);
 	
 	Renderer : g25_Renderer port map(
 		clock => clock,
@@ -75,6 +76,7 @@ Begin
 		life => life,
 		level => level,
 		score => score,
+		blocks => blocks,
 		COLUMN => COLUMN,
 		ROW => ROW,
 		ball_col => ball_col,
