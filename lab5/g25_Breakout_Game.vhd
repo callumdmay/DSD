@@ -90,12 +90,12 @@ Begin
 		blocks_out => blocks
 	);
 	
-	reset : process(reset)
+	reset_game : process(reset)
 	Begin
 	if(reset ='1') then
-		signal score <= "0000000000000000";
-		signal level <= "001";
-		signal life  <= "101";
+		score <= "0000000000000000";
+		level <= "001";
+		life  <= "101";
 	end if;
 	end process;
 	
