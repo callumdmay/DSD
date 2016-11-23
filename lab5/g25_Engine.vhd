@@ -70,109 +70,100 @@ Begin
 	paddle_update <= '1' when paddle_update_count = std_logic_vector(to_unsigned(paddle_speed, 25)) else
 					 '0';	
 	--*************************************--	
-update_game : process(ball_update, reset)
+update_game : process(clock, reset)
 
 	variable ball_x: integer := ball_col;
 	variable ball_y: integer := ball_row;
+	variable paddle_x: integer := paddle_col;
+	variable paddle_y: integer := paddle_row;
 
 Begin
 	if (reset = '1') then
 		ball_x := 400;
 		ball_y := 450;
+		paddle_x := 336;
+		paddle_y := 496;
 		col_increment <= '0';
 		row_increment <= '0';
 		blocks <= (others => '1');
 		score <= 0;
 		level <= 1;
 		life  <= 5;
-	elsif(rising_edge(ball_update)) then
-		--update position
-		if(col_increment ='1') then
-			ball_x := ball_x + 1;
-		else
-			ball_x := ball_x - 1;
-		end if;
-		if(row_increment ='1') then
-			ball_y := ball_y + 1;
-		else
-			ball_y := ball_y - 1;
-		end if;
+	elsif(rising_edge(clock)) then
+		--Update ball
+		if(ball_update = '1') then
+			--update position
+			if(col_increment ='1') then
+				ball_x := ball_x + 1;
+			else
+				ball_x := ball_x - 1;
+			end if;
+			if(row_increment ='1') then
+				ball_y := ball_y + 1;
+			else
+				ball_y := ball_y - 1;
+			end if;
+			
+			--Check if hit block
+			if blocks(12 * ((ball_y - 16)/32) + (ball_x -16)/64) = '1' then
+				if(12 * ((ball_y - 16)/32) + (ball_x -16)/64 < 60) then
+					
+					blocks(12 * ((ball_y - 16)/32) + (ball_x -16)/64) <= '0';
+					score <= score +10;
+					--Hit the bottom 
+					if (ball_x - 15 ) mod 64 = 0 then
+						col_increment <= not col_increment;
+					--Hit the left side
+					elsif (ball_y - 15) mod 32 = 0 then
+						row_increment <= not row_increment;
+					--hit a corner
+					else
+						col_increment <= not col_increment;
+						row_increment <= not row_increment;
+					end if;
+				end if;
+				
+			elsif	blocks(12 * ((ball_y - 8)/32) + (ball_x -8)/64) = '1'  then
+				if(12 * ((ball_y - 8)/32) + (ball_x -8)/64 < 60) then
+					
+					blocks(12 * ((ball_y - 8)/32) + (ball_x -8)/64) <= '0';
+					score <= score +10;
+					--Hit the top
+					if (ball_x - 8) mod 64 = 0 then
+						col_increment <= not col_increment;
+					--Hit the right side
+					elsif (ball_y - 8) mod 32 = 0 then
+						row_increment <= not row_increment;
+					--hit a corner
+					else
+						col_increment <= not col_increment;
+						row_increment <= not row_increment;
+					end if;
+				end if;
+	
+			end if;
 		
-		--Check if hit block
-		if blocks(12 * ((ball_y - 16)/32) + (ball_x -16)/64) = '1' then
-			if(12 * ((ball_y - 16)/32) + (ball_x -16)/64 < 60) then
-				
-				blocks(12 * ((ball_y - 16)/32) + (ball_x -16)/64) <= '0';
-				score <= score +10;
-				--Hit the bottom 
-				if (ball_x - 15 ) mod 64 = 0 then
-					col_increment <= not col_increment;
-				--Hit the left side
-				elsif (ball_y - 15) mod 32 = 0 then
-					row_increment <= not row_increment;
-				--hit a corner
-				else
-					col_increment <= not col_increment;
-					row_increment <= not row_increment;
-				end if;
+			--Check if hit wall
+			if(ball_x <= 16) then
+				col_increment <= '1';
+			end if;
+			if(ball_x > 775) then
+				col_increment <= '0';
+			end if;
+			if(ball_y <= 16) then 
+				row_increment <= '1';
+			end if;
+			if(ball_y > 503)then
+				row_increment <= '0';
 			end if;
 			
-		elsif	blocks(12 * ((ball_y - 8)/32) + (ball_x -8)/64) = '1'  then
-			if(12 * ((ball_y - 8)/32) + (ball_x -8)/64 < 60) then
-				
-				blocks(12 * ((ball_y - 8)/32) + (ball_x -8)/64) <= '0';
-				score <= score +10;
-				--Hit the top
-				if (ball_x - 8) mod 64 = 0 then
-					col_increment <= not col_increment;
-				--Hit the right side
-				elsif (ball_y - 8) mod 32 = 0 then
-					row_increment <= not row_increment;
-			   --hit a corner
-				else
-					col_increment <= not col_increment;
-					row_increment <= not row_increment;
-				end if;
-			end if;
-
-		end if;
-	
-		--Check if hit wall
-		if(ball_x <= 16) then
-			col_increment <= '1';
-		end if;
-		if(ball_x > 775) then
-			col_increment <= '0';
-		end if;
-		if(ball_y <= 16) then 
-			row_increment <= '1';
-		end if;
-		if(ball_y > 503)then
-			row_increment <= '0';
-		end if;
-	
-	
-	end if;
-	
-	
-	ball_col <= ball_x;
-	ball_row <= ball_y;
-
+			ball_col <= ball_x;
+			ball_row <= ball_y;
 			
-end process update_game;
-
-update_paddle : process(clock, reset)
-
-	variable paddle_x: integer := paddle_col;
-	variable paddle_y: integer := paddle_row;
-	
-Begin
-
-	if (reset = '1') then
-		paddle_x := 336;
-		paddle_y := 496;
-	elsif(rising_edge(clock))then
-		if(paddle_update ='1') then
+		end if;
+			
+		--Update paddle
+		if (paddle_update ='1') then
 	
 			if(paddle_left ='0' and paddle_right ='0') then
 			
@@ -187,13 +178,15 @@ Begin
 			else
 			
 			end if;
-		end if;
 		
-	paddle_col <= paddle_x;
-	paddle_row <= paddle_y;	
-	
+			paddle_col <= paddle_x;
+			paddle_row <= paddle_y;
+			
+		end if;
+
 	end if;
 	
-end process update_paddle;
+end process update_game;
+
 
 end arch;
