@@ -39,6 +39,7 @@ component g25_Renderer is
 			blocks: in std_logic_vector (59 downto 0);
 			COLUMN, ROW : in unsigned(9 downto 0);
 			ball_col, ball_row : in unsigned(9 downto 0);
+			paddle_col, paddle_row : in unsigned(9 downto 0);
 			RGB : out std_logic_vector (11 downto 0)
 	);
 end component;
@@ -47,6 +48,8 @@ component g25_Engine is
 	port (clock, reset : in std_logic;
 			ball_out_row: out unsigned(9 downto 0);
 			ball_out_col: out unsigned(9 downto 0);
+			paddle_out_row: out unsigned(9 downto 0);
+			paddle_out_col: out unsigned(9 downto 0);
 			blocks_out : out std_logic_vector(59 downto 0);
 			score_out: out std_logic_vector(15 downto 0) ;
 			level_out: out std_logic_vector(2 downto 0);
@@ -60,6 +63,8 @@ end component;
 	signal RGB_out : std_logic_vector (11 downto 0);
 	signal ball_row: unsigned(9 downto 0);
 	signal ball_col: unsigned(9 downto 0);
+	signal paddle_row: unsigned(9 downto 0);
+	signal paddle_col: unsigned(9 downto 0);
 	signal score: std_logic_vector(15 downto 0);
 	signal level: std_logic_vector(2 downto 0);
 	signal life: std_logic_vector(2 downto 0);
@@ -84,6 +89,8 @@ Begin
 		ROW => ROW,
 		ball_col => ball_col,
 		ball_row => ball_row,
+		paddle_col => paddle_col,
+		paddle_row => paddle_row,
 		RGB => RGB_out
 	);
 			
@@ -92,6 +99,8 @@ Begin
 		reset => reset,
 		ball_out_row => ball_row,
 		ball_out_col => ball_col,
+		paddle_out_row => paddle_row,
+		paddle_out_col => paddle_col,
 		blocks_out => blocks,
 		score_out => score,
 		level_out => level,

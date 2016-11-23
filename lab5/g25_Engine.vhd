@@ -14,6 +14,8 @@ entity g25_Engine is
 	port (clock, reset : in std_logic;
 			ball_out_row: out unsigned(9 downto 0);
 			ball_out_col: out unsigned(9 downto 0);
+			paddle_out_row: out unsigned(9 downto 0);
+			paddle_out_col: out unsigned(9 downto 0);
 			blocks_out : out std_logic_vector(59 downto 0);
 			score_out: out std_logic_vector(15 downto 0) ;
 			level_out: out std_logic_vector(2 downto 0);
@@ -24,45 +26,62 @@ end g25_Engine;
 
 architecture arch of g25_Engine is
 
-	signal ball_row: unsigned(9 downto 0);
-	signal ball_col: unsigned(9 downto 0);
+	signal ball_row: integer;
+	signal ball_col: integer;
 	signal col_increment, row_increment: std_logic := '0';
-	signal blocks : std_logic_vector( 59 downto 0):= (others => '1');
 	signal ball_update_count: std_logic_vector(24 downto 0);
 	signal ball_update : std_logic;
 	signal ball_speed : integer := 100000;	
+	
+	signal paddle_row : integer;
+	signal paddle_col : integer;
+	signal paddle_update_count: std_logic_vector(24 downto 0);
+	signal paddle_update : std_logic;
+	signal paddle_speed : integer := 100000;	
+	
+	signal blocks : std_logic_vector( 59 downto 0):= (others => '1');
 	signal score : integer;
 	signal level : integer;
 	signal life : integer;
 
 Begin
 	
-	ball_out_row <= ball_row;
-	ball_out_col <= ball_col;
+	ball_out_row <= to_unsigned(ball_row, 10);
+	ball_out_col <= to_unsigned(ball_col, 10);
+	paddle_out_row <= to_unsigned(paddle_row, 10);
+	paddle_out_col <= to_unsigned(paddle_col, 10);
 	blocks_out <= blocks; 
 	score_out <= std_logic_vector(to_unsigned(score, 16));
 	level_out <= std_logic_vector(to_unsigned(level, 3));
 	life_out <= std_logic_vector(to_unsigned(life, 3));
 
---***********Game update clock *********--
-	update_counter : lpm_counter 
+--***********Ball update clock *********--
+	ball_update_counter : lpm_counter 
 	generic map(LPM_WIDTH => 25)
 	port map (clock =>clock, sclr => ball_update, aclr => reset, q =>ball_update_count);						
 	ball_update <= '1' when ball_update_count = std_logic_vector(to_unsigned(ball_speed, 25)) else
 					 '0';	
 	--*************************************--
-	
-update_game : process(ball_update, reset)
 
-	variable ball_x: integer := to_integer(ball_col);
-	variable ball_y: integer := to_integer(ball_row);
-	variable block_col : integer := (to_integer(ball_col) - 16)/32;
-	variable block_row : integer := (to_integer(ball_row) - 16)/32;
-		
+--***********Paddle update clock *********--
+	paddle_update_counter : lpm_counter 
+	generic map(LPM_WIDTH => 25)
+	port map (clock =>clock, sclr => paddle_update, aclr => reset, q =>paddle_update_count);						
+	paddle_update <= '1' when paddle_update_count = std_logic_vector(to_unsigned(paddle_speed, 25)) else
+					 '0';	
+	--*************************************--	
+update_game : process(ball_update, paddle_update, reset)
+
+	variable ball_x: integer := ball_col;
+	variable ball_y: integer := ball_row;
+	variable paddle_x: integer := paddle_col;
+	variable paddle_y: integer := paddle_row;
 Begin
 	if (reset = '1') then
 		ball_x := 400;
 		ball_y := 450;
+		paddle_x := 336;
+		paddle_y := 496;
 		col_increment <= '0';
 		row_increment <= '0';
 		blocks <= (others => '1');
@@ -118,10 +137,9 @@ Begin
 					row_increment <= not row_increment;
 				end if;
 			end if;
-	
-		end if;
 
-		
+		end if;
+	
 		--Check if hit wall
 		if(ball_x <= 16) then
 			col_increment <= '1';
@@ -132,15 +150,18 @@ Begin
 		if(ball_y <= 16) then 
 			row_increment <= '1';
 		end if;
-		if(ball_y >= 512)then
+		if(ball_y > 503)then
 			row_increment <= '0';
 		end if;
+	
 	
 	end if;
 	
 	
-	ball_col <= to_unsigned(ball_x, 10);
-	ball_row <= to_unsigned(ball_y, 10);
+	ball_col <= ball_x;
+	ball_row <= ball_y;
+	paddle_col <= paddle_x;
+	paddle_row <= paddle_y;
 			
 end process update_game;
 	

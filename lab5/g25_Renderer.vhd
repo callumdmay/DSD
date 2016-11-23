@@ -15,6 +15,7 @@ entity g25_Renderer is
 			blocks: in std_logic_vector (59 downto 0);
 			COLUMN, ROW : in unsigned(9 downto 0);
 			ball_col, ball_row : in unsigned(9 downto 0);
+			paddle_col, paddle_row : in unsigned(9 downto 0);
 			RGB : out std_logic_vector (11 downto 0)
 	);
 end g25_Renderer;
@@ -75,8 +76,10 @@ Begin
 		"111100001111" when int_row = 0 or ((int_col = 0 or int_col = 49) and int_row < 32) else
 		--Render ball
 		"111111111111" when (ROW >= ball_row and ROW < to_unsigned(to_integer(ball_row) + 8, 10)) and (COLUMN >= ball_col and COLUMN < to_unsigned(to_integer(ball_col) + 8, 10)) else
-		--RenderBlocks
+		--Render blocks
 		"000000001111" when isBlock(COLUMN, ROW, BLOCKS) else
+		--Render paddle
+		"111100000000" when (ROW >= paddle_row and ROW < to_unsigned(to_integer(paddle_row) + 16, 10)) and (COLUMN >= paddle_col and COLUMN < to_unsigned(to_integer(paddle_col) + 128, 10)) else
 		--Render scorebar
 		scorebar_RGB when int_row >32 else
 		--Render blank
