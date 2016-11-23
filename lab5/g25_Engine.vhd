@@ -88,10 +88,15 @@ Begin
 				
 				blocks(12 * ((ball_y - 16)/32) + (ball_x -16)/64) <= '0';
 				score <= score +10;
-				
+				--Hit the bottom 
 				if (ball_x - 15 ) mod 64 = 0 then
 					col_increment <= not col_increment;
+				--Hit the left side
 				elsif (ball_y - 15) mod 32 = 0 then
+					row_increment <= not row_increment;
+				--hit a corner
+				else
+					col_increment <= not col_increment;
 					row_increment <= not row_increment;
 				end if;
 			end if;
@@ -101,10 +106,15 @@ Begin
 				
 				blocks(12 * ((ball_y - 8)/32) + (ball_x -8)/64) <= '0';
 				score <= score +10;
-				
+				--Hit the top
 				if (ball_x - 8) mod 64 = 0 then
 					col_increment <= not col_increment;
+				--Hit the right side
 				elsif (ball_y - 8) mod 32 = 0 then
+					row_increment <= not row_increment;
+			   --hit a corner
+				else
+					col_increment <= not col_increment;
 					row_increment <= not row_increment;
 				end if;
 			end if;
