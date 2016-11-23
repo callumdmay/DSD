@@ -85,7 +85,7 @@ update_game : process(clock, reset)
 
 Begin
 	if (reset = '1') then
-		ball_x := 404;
+		ball_x := 396;
 		ball_y := 450;
 		paddle_x := 336;
 		paddle_y := 496;
@@ -186,7 +186,7 @@ Begin
 				--Check if below paddle then lose life
 				if(ball_y > paddle_y) then
 					life <= life -1;
-					ball_x := 404;
+					ball_x := 396;
 					ball_y := 450;
 					col_increment <= '0';
 					row_increment <= '0';
@@ -214,7 +214,7 @@ Begin
 			if(or_reduce(blocks) ='0') then
 				blocks <= (others => '1');
 				level <= level + 1;
-				ball_x := 404;
+				ball_x := 396;
 				ball_y := 450;
 				col_increment <= '0';
 				row_increment <= '0';
