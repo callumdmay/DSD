@@ -8,6 +8,7 @@ library ieee; -- allows use of the std_logic_vector type
 library lpm;
 use lpm.lpm_components.all;
 use ieee.std_logic_1164.all;
+use ieee.std_logic_misc.all;
 use ieee.numeric_std.all;
 
 entity g25_Engine is 
@@ -29,12 +30,13 @@ architecture arch of g25_Engine is
 	signal pause : std_logic;
 	signal pause_interval: integer := 50000000;
 	signal pause_count : integer ;
+	
 	signal ball_row: integer;
 	signal ball_col: integer;
 	signal col_increment, row_increment: std_logic := '0';
 	signal ball_update_count: std_logic_vector(24 downto 0);
 	signal ball_update : std_logic;
-	signal ball_speed : integer := 100000;	
+	signal ball_speed : integer := 200000;	
 	
 	signal paddle_row : integer;
 	signal paddle_col : integer;
@@ -208,6 +210,21 @@ Begin
 				end if;
 				
 			end if;
+			
+			if(or_reduce(blocks) ='0') then
+				blocks <= (others => '1');
+				level <= level + 1;
+				ball_x := 404;
+				ball_y := 450;
+				col_increment <= '0';
+				row_increment <= '0';
+				paddle_x := 336;
+				paddle_y := 496;
+				ball_speed <= ball_speed - 50000;
+				pause <= '1';	
+				
+			end if;
+			
 				
 
 		else
