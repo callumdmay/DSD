@@ -13,7 +13,7 @@ use ieee.numeric_std.all;
 
 
 entity g25_Breakout_Game is
-	port(clock, reset, VGA_reset: in std_logic;
+	port(clock, reset, VGA_reset, paddle_left, paddle_right: in std_logic;
 			R, G, B : out std_logic_vector(3 downto 0);
 			HSYNC : out std_logic;
 			VSYNC: out std_logic);
@@ -45,7 +45,7 @@ component g25_Renderer is
 end component;
 
 component g25_Engine is 
-	port (clock, reset : in std_logic;
+	port (clock, reset, paddle_left, paddle_right : in std_logic;
 			ball_out_row: out unsigned(9 downto 0);
 			ball_out_col: out unsigned(9 downto 0);
 			paddle_out_row: out unsigned(9 downto 0);
@@ -97,6 +97,8 @@ Begin
 	Engine: g25_Engine port map(
 		clock => clock,
 		reset => reset,
+		paddle_left => paddle_left,
+		paddle_right => paddle_right,
 		ball_out_row => ball_row,
 		ball_out_col => ball_col,
 		paddle_out_row => paddle_row,

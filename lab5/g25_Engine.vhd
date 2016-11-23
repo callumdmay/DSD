@@ -11,7 +11,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity g25_Engine is 
-	port (clock, reset : in std_logic;
+	port (clock, reset, paddle_left, paddle_right : in std_logic;
 			ball_out_row: out unsigned(9 downto 0);
 			ball_out_col: out unsigned(9 downto 0);
 			paddle_out_row: out unsigned(9 downto 0);
@@ -70,18 +70,15 @@ Begin
 	paddle_update <= '1' when paddle_update_count = std_logic_vector(to_unsigned(paddle_speed, 25)) else
 					 '0';	
 	--*************************************--	
-update_game : process(ball_update, paddle_update, reset)
+update_game : process(ball_update, reset)
 
 	variable ball_x: integer := ball_col;
 	variable ball_y: integer := ball_row;
-	variable paddle_x: integer := paddle_col;
-	variable paddle_y: integer := paddle_row;
+
 Begin
 	if (reset = '1') then
 		ball_x := 400;
 		ball_y := 450;
-		paddle_x := 336;
-		paddle_y := 496;
 		col_increment <= '0';
 		row_increment <= '0';
 		blocks <= (others => '1');
@@ -160,10 +157,43 @@ Begin
 	
 	ball_col <= ball_x;
 	ball_row <= ball_y;
-	paddle_col <= paddle_x;
-	paddle_row <= paddle_y;
+
 			
 end process update_game;
+
+update_paddle : process(clock, reset)
+
+	variable paddle_x: integer := paddle_col;
+	variable paddle_y: integer := paddle_row;
 	
+Begin
+
+	if (reset = '1') then
+		paddle_x := 336;
+		paddle_y := 496;
+	elsif(rising_edge(clock))then
+		if(paddle_update ='1') then
+	
+			if(paddle_left ='0' and paddle_right ='0') then
+			
+			elsif(paddle_left ='0') then
+				if(paddle_x > 15) then
+				paddle_x := paddle_x -1;
+				end if;
+			elsif(paddle_right ='0') then
+				if(paddle_x <=656) then
+				paddle_x := paddle_x +1;
+				end if;
+			else
+			
+			end if;
+		end if;
+		
+	paddle_col <= paddle_x;
+	paddle_row <= paddle_y;	
+	
+	end if;
+	
+end process update_paddle;
 
 end arch;

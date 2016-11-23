@@ -159,5 +159,7 @@ set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_global_assignment -name VHDL_FILE lab5/g25_Renderer.vhd
 set_global_assignment -name VHDL_FILE lab5/g25_Engine.vhd
 set_location_assignment PIN_M1 -to VGA_reset
+set_location_assignment PIN_R21 -to paddle_right
+set_location_assignment PIN_T22 -to paddle_left
 set_global_assignment -name SLD_FILE "C:/Users/Callum May/Downloads/DSD/DSD/lab3/g25_vga_auto_stripped.stp"
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
