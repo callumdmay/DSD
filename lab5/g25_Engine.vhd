@@ -48,6 +48,8 @@ architecture arch of g25_Engine is
 	signal score : integer;
 	signal level : integer;
 	signal life : integer;
+	
+	signal game_over : std_logic;
 
 Begin
 	
@@ -97,9 +99,10 @@ Begin
 		life  <= 5;
 		pause <= '0';
 		p_count := 0;
+		game_over <= '0';
 	elsif(rising_edge(clock)) then
 	
-		if(pause = '0') then
+		if(pause = '0' and game_over = '0') then
 
 			--Update paddle
 			if (paddle_update ='1') then
@@ -186,6 +189,9 @@ Begin
 				--Check if below paddle then lose life
 				if(ball_y > paddle_y) then
 					life <= life -1;
+					if(life - 1 = 0) then
+						game_over <= '1';
+					end if;
 					ball_x := 396;
 					ball_y := 450;
 					col_increment <= '0';
@@ -214,6 +220,9 @@ Begin
 			if(or_reduce(blocks) ='0') then
 				blocks <= (others => '1');
 				level <= level + 1;
+				if(level + 1 = 5) then
+					game_over <= '1';
+				end if;
 				ball_x := 396;
 				ball_y := 450;
 				col_increment <= '0';
@@ -223,10 +232,9 @@ Begin
 				ball_speed <= ball_speed - 50000;
 				pause <= '1';	
 				
-			end if;
+			end if;	
 			
-				
-
+		
 		else
 			p_count := p_count +1;
 			
