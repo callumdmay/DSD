@@ -36,7 +36,7 @@ architecture arch of g25_Engine is
 	signal col_increment, row_increment: std_logic := '0';
 	signal ball_update_count: std_logic_vector(24 downto 0);
 	signal ball_update : std_logic;
-	signal ball_speed : integer := 200000;	
+	signal ball_speed : integer;	
 	
 	signal paddle_row : integer;
 	signal paddle_col : integer;
@@ -100,6 +100,7 @@ Begin
 		pause <= '0';
 		p_count := 0;
 		game_over <= '0';
+		ball_speed <= 200000;
 	elsif(rising_edge(clock)) then
 	
 		if(pause = '0' and game_over = '0') then
