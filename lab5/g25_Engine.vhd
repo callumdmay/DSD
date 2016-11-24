@@ -179,7 +179,15 @@ Begin
 					
 				--Check if hit top of paddle
 				if(ball_y + 8 = paddle_y and ball_x +8 >= paddle_x and ball_x < paddle_x +128) then
-						row_increment <= not row_increment;
+					
+					row_increment <= not row_increment;
+					--Reflect different directions depending on where it hit the paddle	
+					if(ball_x +8 >= paddle_x and ball_x < paddle_x +32) then
+						col_increment <= '0';
+					elsif (ball_x  >= paddle_x + 96 and ball_x < paddle_x +128) then
+						col_increment <= '1';
+					end if;
+						
 				end if;
 				--Check if hit side of paddle
 				if ( ball_y + 8 > paddle_y and (ball_x + 8 = paddle_x or ball_x = paddle_x + 128 ) ) then
